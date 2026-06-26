@@ -1,4 +1,5 @@
 #include "ParkingSystem.h"
+#include "customers.h"
 
 #include <iostream>
 #include <fstream>
@@ -14,30 +15,25 @@ ParkingSystem::~ParkingSystem() {
     delete garage;
 }
 
-bool ParkingSystem::initialize(string configFile) 
-{
-    bool success = 
-        readConfigFile(
-            configFile,
-            config);
+bool ParkingSystem::initialize(string configFile) {
+    bool success = readConfigFile(configFile, config);
     
     if (!success) {
         return false;
     }
 
-    garage = 
-        new Garage(
+    garage = new Garage(
             config.numGarages,
             config.garageSize);
 
     return true;
 }
 
+//Read interaction file
 void ParkingSystem::processInteractions() {
-    ifstream inputFile(
-        config.interactionFile);
+    ifstream inputFile("interactions.txt");
     
-    if (!inputfile.is_open()) {
+    if (!inputFile.is_open()) {
         cout << "Could not open interactions file" << endl;
 
         return;
@@ -45,14 +41,12 @@ void ParkingSystem::processInteractions() {
 
     string line;
 
-    while(getline(
-       inputFile,
-       line)) 
-       {
+    while(getline(inputFile,line)) {
            if(line.empty()){
-           continue;
+               continue;
            }
 
+            //Pickup
            if(line[0] == 'P') {
                string idText =
                 line.substr(3);
@@ -63,16 +57,16 @@ void ParkingSystem::processInteractions() {
                 pickup(customerID);
            }
 
+            // drop off request
            else if (line[0] == 'D') 
            {
-               stringstream ss(
-                   line.substr(3));
+               stringstream ss(line.substr(3));
 
                    string name;
                    string phone;
                    string time;
 
-                   getline (ss, name ',');
+                   getline (ss, name ,',');
 
                    getline (ss, phone, ',');
 
@@ -86,12 +80,18 @@ void ParkingSystem::processInteractions() {
        inputFile.close();
 }
 
+//drop off
 void ParkingSystem::dropoff(string name, string phone, string time) {
-    cout << "Dropoff Request: " << name << " " << phone << " " << time << endl;
+    static int nextID = 100;
+    Customer customer(nextID, stoi(phone), name);
+    nextID++;
+
+    garage -> dropoff(customer);
+    cout << "Arrival Time: " << time << endl;
 }
 
-void ParkingSystem:: pickup( int customerID) {
-    cout << "Pickup Request: " << customerID << endl;
+void ParkingSystem::pickup( int customerID) {
+    garage ->pickup(customerID);
 }
 
 void ParkingSystem::output() {
