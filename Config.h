@@ -1,7 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
+
 #include <string>
-#include <vector>
+
 using namespace std;
 
 
@@ -11,6 +12,7 @@ struct ConfigData
     int garageSize;
     string occupancyFile;
     string customerFile;
+    string InteractionFile;
 };
 
 bool readConfigFile(string fileName, ConfigData& config);
