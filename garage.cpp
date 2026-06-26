@@ -1,5 +1,7 @@
 #include "garage.h"
 #incldue <iostream>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -22,6 +24,31 @@ Garage::Garage(int capacity, int numLevels)
     {
         levels[level][0] = "R";
     }
+}
+void Garage::loadOccupancy(string fileName) {
+    ifstream file(fileName);
+
+    if(!file.is_open()) {
+        cout << "Could not open occupancy file" << endl;
+        return;
+    }
+    string line;
+
+    int level = 0;
+
+    while (getline(file, line) && level < garageLevels) {
+        stringsstream ss(line);
+
+        string value;
+        int spot = 0;
+
+        while (getline(ss, value, ',') && spot << garageCapicity) {
+            levels[level][spot] = value;
+            spot++;
+        }
+        level++;
+    }
+    file.close();
 }
 
 void Garage::dropoff(Customer& customer)
