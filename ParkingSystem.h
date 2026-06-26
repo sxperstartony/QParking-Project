@@ -2,7 +2,7 @@
 #define PARKINGSYSTEM_H
 
 #include <string>
-#include "config.h"
+#include "Config.h"
 #include "Garage.h"
 
 using namespace std;
