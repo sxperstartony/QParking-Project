@@ -1,4 +1,5 @@
-#include "config.h"
+#include "Config.h"
+
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -8,7 +9,7 @@ using namespace std;
 bool readConfigFile(string fileName, ConfigData& config)
 {
     ifstream inputFile;
-
+    inputFile.open(fileName);
 
     if (!inputFile.is_open())
     {
@@ -22,6 +23,8 @@ bool readConfigFile(string fileName, ConfigData& config)
     inputFile >> config.occupancyFile;
     //file name for the customers information
     inputFile >> config.customerFile;
+
+    inputFile >> config.interactionFile;
 
     inputFile.close();
 
