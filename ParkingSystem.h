@@ -3,6 +3,7 @@
 
 #include <string>
 #include "config.h"
+#include "Garage.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ class ParkingSystem {
         ~ParkingSystem();
 
         // Intializing the entire system
-        bool initalize(string configfiel);
+        bool initialize(string configFile);
 
         //Reading and executing interations
         void processInteractions();
