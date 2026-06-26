@@ -14,8 +14,7 @@ ParkingSystem::~ParkingSystem() {
     delete garage;
 }
 
-bool ParkingSystem::initialize(
-    string configFile) 
+bool ParkingSystem::initialize(string configFile) 
 {
     bool success = 
         readConfigFile(
@@ -44,14 +43,15 @@ void ParkingSystem::processInteractions() {
         return;
     }
 
-    string file;
+    string line;
 
     while(getline(
        inputFile,
        line)) 
        {
-           if(line.empty())
+           if(line.empty()){
            continue;
+           }
 
            if(line[0] == 'P') {
                string idText =
