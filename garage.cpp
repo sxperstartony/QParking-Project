@@ -1,5 +1,11 @@
 #include "garage.h"
+#incldue <iostream>
 
+using namespace std;
+
+int Garage::garagePosition(int customerID) const {
+    return customerID % garageCapacity;
+}
 
 Garage::Garage(int capacity, int numLevels)
 {
