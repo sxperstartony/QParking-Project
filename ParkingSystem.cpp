@@ -25,6 +25,7 @@ bool ParkingSystem::initialize(string configFile) {
     garage = new Garage(config.numGarages, config.garageSize);
 
     garage -> loadOccupancy( config.occupancyFile);
+    loadCustomers();
 
     return true;
 }
@@ -80,6 +81,20 @@ void ParkingSystem::processInteractions() {
        inputFile.close();
 }
 
+void ParkingSystem::loadCustomer() {
+    ifstream file(config.customerFile);
+        if(!file.is_open()) {
+            cout << "Could not open customer file" << endl;
+            return;
+        }
+
+        string line;
+
+        while(getline(file, line)) {}
+
+        file.close();
+}
+
 //drop off
 void ParkingSystem::dropoff(string name, string phone, string time) {
     static int nextID = 100;
@@ -95,8 +110,17 @@ void ParkingSystem::pickup( int customerID) {
 }
 
 void ParkingSystem::output() {
-    cout << "\nFinal Garage State\n";
+    ofstream outFile("finalGarageState.txt");
+        if(!outFile.is_open()) {
+            cout << "Could not create output file" << endl;
+            return;
+        }
 
-    garage -> printGarage();
+        outFile << "\nFinal Garage State\n\n";
+
+        for(int i = 0; i < 1; i++) {
+            garage->printGarage();
+        }
+    outFile.close();
 }
 
