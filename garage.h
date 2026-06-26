@@ -21,10 +21,7 @@ private:
     // "<customer id>" = occupied parking space
     vector<vector<string>> levels;
 
-    int garagePosition(int customerID) const
-    {
-        return customerID % garageCapacity;
-    }
+    int garagePosition(int customerID) const;
 
 public:
     Garage(int capacity, int numLevels);
