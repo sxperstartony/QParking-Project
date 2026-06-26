@@ -8,7 +8,7 @@ using namespace std;
 bool readConfigFile(string fileName, ConfigData& config)
 {
     ifstream inputFile;
-
+    inputFile.open(fileName);
 
     if (!inputFile.is_open())
     {
