@@ -8,7 +8,7 @@
 
 using namespace std;
 
-
+void loadOccupancy(string fileName);
 
 class Garage {
 private:
