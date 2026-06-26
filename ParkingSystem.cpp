@@ -22,9 +22,9 @@ bool ParkingSystem::initialize(string configFile) {
         return false;
     }
 
-    garage = new Garage(
-            config.numGarages,
-            config.garageSize);
+    garage = new Garage(config.numGarages, config.garageSize);
+
+    garage -> loadOccupancy( config.occupancyFile);
 
     return true;
 }
