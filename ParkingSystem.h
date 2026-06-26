@@ -2,8 +2,8 @@
 #define PARKINGSYSTEM_H
 
 #include <string>
-#include "Config.h"
-#include "Garage.h"
+#include "config.h"
+#include "garage.h"
 
 using namespace std;
 
@@ -24,15 +24,9 @@ class ParkingSystem {
         //Reading and executing interations
         void processInteractions();
 
-        void dropoff(
-            string name,
-            string phone,
-            string time
-        );
+        void dropoff(string name, string phone, string time);
 
-        void pickup(
-            int customerID
-        );
+        void pickup(int customerID);
 
         void output();
 };
