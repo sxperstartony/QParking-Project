@@ -1,5 +1,4 @@
 #include "ParkingSystem.h"
-#include "customers.h"
 
 #include <iostream>
 #include <fstream>
@@ -25,14 +24,14 @@ bool ParkingSystem::initialize(string configFile) {
     garage = new Garage(config.numGarages, config.garageSize);
 
     garage -> loadOccupancy( config.occupancyFile);
-    loadCustomers();
 
     return true;
 }
 
+
 //Read interaction file
 void ParkingSystem::processInteractions() {
-    ifstream inputFile("interactions.txt");
+    ifstream inputFile(config.interactionFile);
     
     if (!inputFile.is_open()) {
         cout << "Could not open interactions file" << endl;
@@ -49,29 +48,33 @@ void ParkingSystem::processInteractions() {
 
             //Pickup
            if(line[0] == 'P') {
-               string idText =
-                line.substr(3);
+               string idText = line.substr(2);
+               idText.erase(0, idText.find_first_not_of(" "));
 
-                int customerID =
-                stoi(idText);
-
-                pickup(customerID);
+               try {
+                   int customerID = stoi(idText);
+                   pickup(customerID);
+                }
+                catch (...) {
+                    cout << "Invalid customer ID(skipped)\n";
+                }
            }
 
             // drop off request
            else if (line[0] == 'D') 
            {
-               stringstream ss(line.substr(3));
+               stringstream ss(line.substr(2));
 
                    string name;
                    string phone;
                    string time;
 
                    getline (ss, name ,',');
-
                    getline (ss, phone, ',');
-
                    getline (ss, time);
+
+                   phone.erase(0, phone.find_first_not_of(" "));
+                   phone.erase(phone.find_last_not_of(" ") + 1);
 
                    dropoff (name, phone, time);
                
@@ -81,28 +84,17 @@ void ParkingSystem::processInteractions() {
        inputFile.close();
 }
 
-void ParkingSystem::loadCustomer() {
-    ifstream file(config.customerFile);
-        if(!file.is_open()) {
-            cout << "Could not open customer file" << endl;
-            return;
-        }
-
-        string line;
-
-        while(getline(file, line)) {}
-
-        file.close();
-}
 
 //drop off
 void ParkingSystem::dropoff(string name, string phone, string time) {
     static int nextID = 100;
-    Customer customer(nextID, stoi(phone), name);
-    nextID++;
 
-    garage -> dropoff(customer);
+    Customer customer(nextID, phone, name);
+
+    garage ->dropoff(customer);
+
     cout << "Arrival Time: " << time << endl;
+    nextID++;
 }
 
 void ParkingSystem::pickup( int customerID) {
@@ -116,11 +108,13 @@ void ParkingSystem::output() {
             return;
         }
 
-        outFile << "\nFinal Garage State\n\n";
+        streambuf* old = cout.rdbuf();
+        cout.rdbuf(outFile.rdbuf());
 
-        for(int i = 0; i < 1; i++) {
-            garage->printGarage();
-        }
+        cout << "\nFinal Garage State\n";
+        garage->printGarage();
+
+        cout.rdbuf(old);
+
     outFile.close();
 }
-
