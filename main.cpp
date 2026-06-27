@@ -2,14 +2,14 @@
 
 #include "ParkingSystem.h"
 
-usign namespace std;
+using namespace std;
 
 int main() {
   ParkingSystem system;
 
   string configFile;
 
-  cout << "Enter conifguration file: ";
+  cout << "Enter configuration file: ";
   cin >> configFile;
 
   //Initialize the system
