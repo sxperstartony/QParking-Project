@@ -1,5 +1,6 @@
 #include "config.h"
 #include <iostream>
+#include <string>
 #include <fstream>
 using namespace std;
 
@@ -22,6 +23,8 @@ bool readConfigFile(string fileName, ConfigData& config)
     inputFile >> config.occupancyFile;
     //file name for the customers information
     inputFile >> config.customerFile;
+
+    inputFile >> config.interactionFile;
 
     inputFile.close();
 
