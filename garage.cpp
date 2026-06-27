@@ -1,5 +1,5 @@
 #include "garage.h"
-#incldue <iostream>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 
@@ -25,6 +25,7 @@ Garage::Garage(int capacity, int numLevels)
         levels[level][0] = "R";
     }
 }
+
 void Garage::loadOccupancy(string fileName) {
     ifstream file(fileName);
 
@@ -37,12 +38,12 @@ void Garage::loadOccupancy(string fileName) {
     int level = 0;
 
     while (getline(file, line) && level < garageLevels) {
-        stringsstream ss(line);
+        stringstream ss(line);
 
         string value;
         int spot = 0;
 
-        while (getline(ss, value, ',') && spot << garageCapicity) {
+        while (getline(ss, value, ',') && spot < garageCapacity) {
             levels[level][spot] = value;
             spot++;
         }
@@ -51,7 +52,7 @@ void Garage::loadOccupancy(string fileName) {
     file.close();
 }
 
-void Garage::dropoff(Customer& customer)
+void Garage::dropoff(const Customer& customer)
 {
     // Look for preferred position within first garage level.
     // If unavailable, check the next available spot on the same level.
