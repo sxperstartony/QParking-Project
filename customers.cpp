@@ -1,6 +1,6 @@
 #include "customers.h"
 
-Customer::Customer(int id, int phone, string customerName)
+Customer::Customer(int id, string phone, string customerName)
 {
     customerID = id;
     phoneNumber = phone;
@@ -12,7 +12,7 @@ int Customer::getCustomerID() const
     return customerID;
 }
 
-int Customer::getPhoneNumber() const
+string Customer::getPhoneNumber() const
 {
     return phoneNumber;
 }
