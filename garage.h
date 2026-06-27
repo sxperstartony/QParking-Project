@@ -8,8 +8,6 @@
 
 using namespace std;
 
-void loadOccupancy(string fileName);
-
 class Garage {
 private:
     int garageCapacity;
@@ -26,14 +24,13 @@ private:
 public:
     Garage(int capacity, int numLevels);
 
-    void dropoff(Customer& customer);
+    void dropoff(const Customer& customer);
 
     void pickup(int customerID);
 
     void printGarage() const;
+
+    void loadOccupancy(string fileName);
 };
-
-
-
 
 #endif
