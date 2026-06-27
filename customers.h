@@ -1,7 +1,6 @@
 #ifndef CUSTOMERS_H
 #define CUSTOMERS_H
 
-#include <iostream>
 #include <string>
 
 using namespace std;
@@ -11,15 +10,15 @@ using namespace std;
 class Customer {
 private:
     int customerID;
-    int phoneNumber;
+    string phoneNumber;
     string name;
 
 public:
-    Customer(int id, int phone, string customerName);
+    Customer(int id, string phone, string customerName);
 
     int getCustomerID() const;
 
-    int getPhoneNumber() const;
+    string getPhoneNumber() const;
 
     string getCustomerName() const;
 };
