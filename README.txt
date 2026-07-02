@@ -1,7 +1,7 @@
 The names of all group members:
-  Anthony Martinez
-  Julian Lopez
-  Fiker Wondwosen
+  Anthony Martinez (sxperstartony)
+  Julian Lopez (Nuclear-Puncake)
+  Fiker Wondwosen (FikerWondwosen)
   Jakolby King
 
 Instructions on how to compile your program:
